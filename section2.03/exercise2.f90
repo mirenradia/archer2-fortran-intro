@@ -19,4 +19,23 @@ program exercise2
   !
   ! Is one version any clearer than the other?
 
+  implicit none
+
+  integer, parameter :: nmax = 120
+  logical, dimension(2:nmax) :: isprime
+  integer :: i, j
+  integer :: nprimes
+
+  isprime = .true.
+  
+  do i = 2, floor(sqrt(real(nmax)))
+    if (isprime(i)) then
+      isprime(i**2:nmax:i) = .false.
+    end if
+  end do
+
+  nprimes = count(isprime(:))
+
+  print *, "number of primes up to ", nmax, " is ", nprimes
+
 end program exercise2

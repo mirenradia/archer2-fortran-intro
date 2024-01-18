@@ -12,9 +12,9 @@ program exercise
 
 
   use iso_fortran_env
+  use tridiagonal
   implicit none
 
-  integer, parameter :: mykind = real32
   integer, parameter :: nmax = 4
 
   real (mykind), dimension(nmax)      :: b = [4.0, 4.0, 4.0, 4.0]
@@ -23,26 +23,7 @@ program exercise
   real (mykind), dimension(nmax)      :: d = [1.0, 4.0, 5.0, 6.0]
   real (mykind), dimension(nmax)      :: x
 
-  real (mykind) :: w
-  integer :: i
-
-  ! Set up the matrix here: all elements; diagonal elements, then
-  ! off-diagonal elements
-
-  ! Solve via Thomas' algorithm
-  ! Note b(:) and d(:) are destroyed
-
-  do i = 2, nmax
-    w = a(i) / b(i-1)
-    b(i) = b(i) - w*c(i-1)
-    d(i) = d(i) - w*d(i-1)
-  end do
-
-  x(:) = d(:)/b(:)
-
-  do i = nmax-1, 1, -1
-    x(i) = (d(i) - c(i)*x(i+1))/b(i)
-  end do
+  call tridiagonal_solve(b, a, c, d, x)
 
   print *, "Solution ", x(:)
 

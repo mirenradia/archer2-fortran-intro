@@ -40,4 +40,26 @@ program exercise4
   ! print *, "Value of pi:      ", pi
   ! print *, "Approximation is: ", conductance
 
+  use iso_fortran_env, only : real32, real64, real128
+
+  implicit none
+
+  integer, parameter :: real_t = real128
+
+  real (real_t), parameter :: w = 62, h = 30
+  real (real_t) :: k = 1
+  real (real_t) :: b, c
+  real (real_t) :: a_1, C_1
+  real (real_t) :: pi
+
+  b = 0.5_real_t * w
+  c = 0.5_real_t * h
+  pi = 4.0_real_t * atan(1.0_real_t)
+  a_1 = 0.5d0 * (2d0 * k - 1) * pi 
+
+  C_1 = (4.0_real_t / 3.0_real_t) * b * (c ** 3) * (1_real_t - 6_real_t * (c / b) * tanh(a_1 * b / c) / (a_1 ** 5)) 
+
+  print *, "Value of w:       ", w
+  print *, "Value of h:       ", h
+  print *, "Approximation is: ", C_1
 end program exercise4

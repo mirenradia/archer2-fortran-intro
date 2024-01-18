@@ -22,7 +22,11 @@ program exercise_program
   real (mykind), dimension(nmax)      :: d = [1.0, 4.0, 5.0, 6.0]
   real (mykind), dimension(nmax)      :: x
 
-  call tridiagonal_solve(b, a, c, d, x)
+  type (tridiagonal_matrix) :: tri_mat
+
+  tri_mat = create_tridiagonal_matrix(nmax, b, a, c)
+  
+  call tridiagonal_solve(tri_mat, d, x)
 
   print *, "Solution ", x(:)
 

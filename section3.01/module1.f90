@@ -1,7 +1,8 @@
 module module1
 
   implicit none
-
+  private
+  
   integer, parameter :: mykind = kind(1.d0)
 
 contains

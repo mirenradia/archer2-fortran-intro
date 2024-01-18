@@ -4,7 +4,7 @@ program example1
 
   implicit none
 
-  integer          :: datum = 1
+  integer, target  :: datum = 1
   integer, pointer :: p => null()
 
   p => datum

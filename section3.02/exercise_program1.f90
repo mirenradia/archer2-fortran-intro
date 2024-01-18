@@ -5,6 +5,16 @@ program exercise_program1
   use exercise_module1
   implicit none
 
-  print *, "pi: ", pi_gauss_legendre()
+  real (kind = kp) :: pi
+  integer, parameter :: nmax = 5
+  integer :: fib_32
+
+  call pi_gauss_legendre_sr(nmax, pi)
+  
+  print *, "pi: ", pi
+
+  fib_32 = fibonacci(32)
+
+  print *, "fib_32: ", fib_32
 
 end program exercise_program1

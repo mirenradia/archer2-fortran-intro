@@ -36,15 +36,25 @@ program exercise2
   real (kp), parameter :: w = 62.0
   real (kp), parameter :: h = 30.0
 
-  real (kp) :: a, b, c
+  real (kp) :: a, b, c, sum
   real (kp) :: conductance
+  integer :: k
+  integer, parameter :: kmax = 1000
 
   a = 0.5*pi
   b = 0.5*w
   c = 0.5*h
 
-  ! First term only
-  conductance = (4.0/3.0)*b*(c**3)*(1.0 - 6.0*(c/b)*tanh(a*b/c)/a**5)
+  sum = 0.0_kp
+
+  do k = 1, kmax
+    a = 0.5_kp * (2.0_kp * real(k, kp) - 1.0_kp ) * pi
+    sum = sum + tanh(a*b/c)/a**5
+    conductance = (4.0/3.0)*b*(c**3)*(1.0 - 6.0*(c/b)*sum)
+    if (mod(k, 20) == 0) then
+      print *, "k: ", k, ", approximation: ", conductance
+    end if
+  end do
 
   ! Some appropriate output might be ...
   print *, "Value of w:       ", w

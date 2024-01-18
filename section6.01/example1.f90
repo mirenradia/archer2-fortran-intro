@@ -3,6 +3,12 @@ program example1
   ! Calling a external function
 
   implicit none
+  interface
+    function array_size(a) result(isize)
+      real, dimension(:), intent(in) :: a
+      integer                        :: isize
+    end function array_size
+  end interface
 
   real, dimension(3,2) :: a
 

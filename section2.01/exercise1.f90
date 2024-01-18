@@ -16,24 +16,38 @@ program exercise1
 
   implicit none
 
-  integer, parameter :: kp = kind(1.e0)
+  integer, parameter :: kp = kind(1.0d0)
+  integer, parameter :: nmax = 1000
+  real (kp), parameter :: tol = 1.0e-14_kp
 
   real (kp) :: a = 1.0_kp
   real (kp) :: b = 1.0/sqrt(2.0_kp)
   real (kp) :: t = 0.25_kp
   real (kp) :: p = 1.0_kp
+  real (kp) :: pi_n
+  real (kp) :: pi
+
+  integer :: n
 
   real (kp) :: an
 
   print *, "Approximation pi_0: ", (a + b)**2/(4.0*t)
 
-  an = a
+  pi = 4.0_kp * atan(1.0_kp)
 
-  a = (an + b)/2.0
-  b = sqrt(an*b)
-  t = t - p*(an - a)**2
-  p = 2.0*p
+  do n = 1, nmax
+    an = a
 
-  print *, "Approximation pi_1: ", (a + b)**2/(4.0*t)
+    a = (an + b)/2.0
+    b = sqrt(an*b)
+    t = t - p*(an - a)**2
+    p = 2.0*p
+    
+    pi_n = (a + b)**2/(4.0*t)
+    if (abs(pi_n - pi) < tol) exit
+  end do
+
+  print *, "n: ", n
+  print *, "Approximation pi_n: ", (a + b)**2/(4.0*t)
 
 end program exercise1

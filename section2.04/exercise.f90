@@ -26,4 +26,49 @@ program exercise
   !    before entering the solution phase.
   !    See also https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
 
+  use iso_fortran_env
+  implicit none
+
+  integer, parameter :: n = 4
+  real (real64), dimension(n) :: a = [0.0d0, 1.0d0, 1.0d0, 1.0d0]
+  real (real64), dimension(n) :: b = [4.0d0, 4.0d0, 4.0d0, 4.0d0]
+  real (real64), dimension(n) :: c = [2.0d0, 2.0d0, 2.0d0, 0.0d0]
+  real (real64), dimension(n) :: d = [1.0d0, 8.0d0, 5.0d0, 6.0d0]
+  real (real64), dimension(n) :: x, d_original, error
+  real (real64) :: w
+  real (real64), dimension(n,n) :: m
+  integer :: i
+
+
+  d_original = d
+  m = 0.0d0
+
+  m(2,1) = a(2)
+  m(1,1) = b(1)
+  m(1,2) = c(1)
+  do i = 2,n-1
+    m(i+1,i) = a(i+1)
+    m(i,i) = b(i)
+    m(i,i+1) = c(i)
+  end do
+  m(n,n) = b(n)
+
+  do i = 2,n
+    w = a(i) / b(i-1)
+    b(i) = b(i) - w * c(i-1)
+    d(i) = d(i) - w * d(i-1)
+  end do
+
+  x(n) = d(n) / b(n)
+
+  do i = n-1, 1, -1
+    x(i) = (d(i) - c(i) * x(i+1)) / b(i)
+  end do
+
+  print *, "Solution is: ", x
+
+  error = d_original - matmul(m, x)
+  print *, "m is: ", m
+  print *, "Error is: ", error
+
 end program exercise

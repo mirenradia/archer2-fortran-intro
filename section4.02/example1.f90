@@ -13,6 +13,7 @@ program example1
   print "('Format i10:    ',    i10)", ivar
   print "('Format i10.10: ', i10.10)", ivar
   print "('Format l10:    ',    l10)", lvar
+  print "('Format b32.32: ', b32.32)", ivar
   print "('Format f10.3:  ',  f10.3)", avar
   print "('Format e10.3:  ',  e10.3)", avar
   print "('Format en10.3: ', en10.3)", avar

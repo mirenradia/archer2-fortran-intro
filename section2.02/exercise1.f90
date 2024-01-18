@@ -28,26 +28,29 @@ program exercise1
   implicit none
 
   integer, parameter :: kp = kind(1.d0)
+  integer, parameter :: nmax = 10
 
-  real (kp) :: a = 1.0_kp
-  real (kp) :: b = 1.0/sqrt(2.0_kp)
-  real (kp) :: t = 0.25_kp
+  real (kp), dimension(0:nmax) :: a
+  real (kp), dimension(0:nmax) :: b
+  real (kp), dimension(0:nmax) :: t
   real (kp) :: p = 1.0_kp
 
-  real (kp) :: an
-  integer   :: n = 0
+  integer :: n
 
-  do
-    print *, "Approximation n, pi: ", n, (a + b)**2/(4.0*t)
-    if (n > 10) exit
+  a(0) = 1.0_kp
+  b(0) = 1.0/sqrt(2.0_kp)
+  t(0) = 0.25_kp
 
-    an = a
+  do n = 0, nmax-1
 
-    a = (an + b)/2.0
-    b = sqrt(an*b)
-    t = t - p*(an - a)**2
+    a(n+1) = (a(n) + b(n))/2.0
+    b(n+1) = sqrt(a(n)*b(n))
+    t(n+1) = t(n) - p*(a(n) - a(n+1))**2
     p = 2.0*p
-    n = n + 1
+  end do
+
+  do n = 0, nmax
+    print *, "Approximation n, pi: ", n, (a(n) + b(n))**2/(4.0*t(n))
   end do
 
 end program exercise1

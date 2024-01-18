@@ -1,4 +1,6 @@
 program exercise1
+  
+  implicit none
 
   ! Improve the following program
 

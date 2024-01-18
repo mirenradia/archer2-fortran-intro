@@ -12,6 +12,11 @@ contains
     real, dimension(:,:), intent(in)    :: a
     real, dimension(:,:), intent(inout) :: b
 
+    print *, "ubound(a) = ", ubound(a)
+    print *, "lbound(a) = ", lbound(a)
+    print *, "ubound(b) = ", ubound(b)
+    print *, "lbound(b) = ", lbound(b)
+
     b(:,:) = b(:,:) + a(:,:)
 
   end subroutine array_action2

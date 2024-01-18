@@ -5,8 +5,8 @@ program example3
   implicit none
 
   character (len = *), dimension(7), parameter :: days =                  &
-       ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", &
-        "Saturday"]
+       [character (len = 9) :: "Sunday", "Monday", "Tuesday", "Wednesday",&
+        "Thursday", "Friday", "Saturday"]
 
   integer :: n
 
